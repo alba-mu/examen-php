@@ -11,10 +11,11 @@
  * Register and Login buttons. It uses Bootstrap 5 for styling and layout.
  */
 
-    $_SESSOION['isLogged'] = False;
+    $isLogged = False;
+    $isAdvanced = False;
 
     // Comprobar si hi ha sesió iniciada
-    if(isset($_SESSION['isLogged'])) {
+    if(isset($_SESSION['role'])) {
         $isLogged = True;
         // Determinar si és advanced
         if ($_SESSION['role'] === 'advanced') {
@@ -68,14 +69,6 @@
 
                     
                 </ul>
-
-                <?php if (!$isLogged): ?>
-                    <ul class="navbar-nav mb-2 mb-xxl-0">
-                        <li class="nav-item">
-                            <a class="btn btn-outline-light btn-md" href="index.php">Login</a>
-                        </li>
-                    </ul>
-                <?php endif; ?>
                 
                 <?php if ($isLogged): ?>
                     <ul class="navbar-nav mb-2 mb-xxl-0 ms-xxl-3 align-items-end">

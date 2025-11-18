@@ -13,7 +13,11 @@
  */
 
 require_once './fn-php/fn-users.php';
-$isLogged = False;
+
+if (isset($_COOKIE['loggedIn'])){
+    $isLogged = True;
+}
+
 $msg_error = "";
 
 if (filter_has_var(INPUT_POST, "loginsubmit")) {
@@ -32,10 +36,14 @@ if (filter_has_var(INPUT_POST, "loginsubmit")) {
       // start session
       session_start();
       // save data in session
-      $_SESSION['role'] = $userinfo[2];
       $_SESSION['username'] = $userinfo[0];
+      $_SESSION['password'] = $userinfo[1];
+      $_SESSION['role'] = $userinfo[2];
+      //Actualitzar visites
+      $_SESSION['visits'] = $userinfo[3]++;
 
-      $isLogged = True;
+      setcookie('loggedIn', True);
+    
     } else {  // incorrect password
       $msg_error = "Incorrect password";
     }
