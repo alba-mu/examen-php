@@ -12,21 +12,24 @@
  * @return array<string, string> Associative array in the format ['filename' => 'filepath']
  */
 function listAvatars(){
-  $filedir='avatars/';
-  $avatars = [];
 
-  if(file_exists($filedir) && is_dir($filedir)){
-    if($handle=opendir($filedir)){
-      while(($entry=readdir($handle))!==false){			
-        if($entry!="." && $entry !=".."){
-          $filepath = $filedir . $entry;
-          if(in_array(mime_content_type($filepath), array('image/jpeg', 'image/png'))){
-            $avatars[$entry] = $filepath;
-          }
+    $filedir='avatars/';
+    $avatars = [];
+    $allowed = ['image/jpeg', 'image/png'];
+
+    if(file_exists($filedir) && is_dir($filedir)){
+        if($handle=opendir($filedir)){
+            while(($entry=readdir($handle))!==false){
+                if($entry!="." && $entry !=".."){
+                    $filepath = $filedir . $entry;
+                    
+                    if(in_array(mime_content_type($filepath), $allowed)){
+                        $avatars[$entry] = $filepath;
+                    }
+                }
+            }
+            closedir($handle);
         }
-      }
-      closedir($handle);
     }
-  }
-  return $avatars;
+    return $avatars;
 }
