@@ -6,7 +6,6 @@
  */
 session_start();
 require_once './fn-php/fn-users.php';
-require_once './fn-php/fn-visits.php';
 
 $msg_error = "";
 
