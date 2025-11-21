@@ -26,7 +26,7 @@ $avatars = listAvatars();
     <div class="container text-center">
         <div class="row">
             <?php foreach ($avatars as $filename => $filepath) : ?>
-                <div class="col-2 mb-4">
+                <div class="col-6 col-md-4 col-lg-3 col-xl-2 mb-4">
                     <div class="card border-1 text-dark p-3 rounded-4 text-center">
                         <img class="rounded-circle img-thumbnail mx-auto img-fluid" 
                             src="<?=$filepath?>" 

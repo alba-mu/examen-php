@@ -101,21 +101,23 @@ $avatars = listAvatars();
 <?php endif; ?>
 
 <?php if ($isLogged): ?>
-  <div class="container text-center">
-    <div class="row">
-      <?php foreach ($avatars as $filename => $filepath) : ?>
-        <div class="col-2 mb-4">
-            <div class="card border-1 text-dark p-3 rounded-4 text-center">
-                <img class="rounded-circle img-thumbnail mx-auto img-fluid" 
-                    src="<?=$filepath?>" 
-                    alt="<?=$filename?>">
-                <p class="mt-2"><?=$filename?></p>
-                <a href="download.php?file=<?=$filename?>" class="btn btn-outline-dark">Download</a>
-            </div>
+  <main class="flex-grow-1 d-flex justify-content-center align-items-center">
+    <div class="container text-center">
+        <div class="row">
+            <?php foreach ($avatars as $filename => $filepath) : ?>
+                <div class="col-6 col-md-4 col-lg-3 col-xl-2 mb-4">
+                    <div class="card border-1 text-dark p-3 rounded-4 text-center">
+                        <img class="rounded-circle img-thumbnail mx-auto img-fluid" 
+                            src="<?=$filepath?>" 
+                            alt="<?=$filename?>">
+                        <p class="mt-2"><?=$filename?></p>
+                        <a href="download.php?file=<?=$filename?>" class="btn btn-outline-dark">Download</a>
+                    </div>
+                </div>
+            <?php endforeach; ?>
         </div>
-      <?php endforeach; ?>
     </div>
-  </div>
+  </main>
 <?php endif; ?>
 
 <?php include_once "includes/footer.php"; ?>
