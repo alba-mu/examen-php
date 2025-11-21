@@ -24,24 +24,21 @@ $avatars = listAvatars();
 
 <main class="flex-grow-1 d-flex justify-content-center align-items-center">
     <div class="container text-center">
-        <form name="form_image" action="fn-php/upload.php" method="POST" enctype="multipart/form-data">
-            <fieldset>
-                <legend>Image</legend>
-                <input type="file" name="filename" accept="image/png, image/jpeg"/>
-            </fieldset>
-            <fieldset>
-                <legend>Width and Height</legend>
-                <input type="number" name="width" min="0" max="900" value="450"/>
-                <input type="number" name="height" min="0" max="650" value="325"/>
-            </fieldset>
-            <p><input type="submit" value="upload" name="submit_image">
-                <input type="reset" value="reset" name="reset_image">
-            </p>
-        </form>
-    </div>
-
-
-    <div class="container text-center">
+        <div class="row">
+            <div class="card mb-4 p-0"> 
+                <div class="card-header bg-dark-subtle pb-0">
+                    <h3>Upload new avatar to server</h3>
+                </div>    
+                <div class="card-body">
+                    <form name="form_image" action="fn-php/upload.php" method="POST" enctype="multipart/form-data">
+                        <div class="input-group mb-3">
+                            <input class="form-control" type="file" name="filename" accept="image/png, image/jpeg"/>
+                            <input class="btn btn-dark text-white" type="submit" value="upload" name="submit_image">
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
         <div class="row">
             <?php foreach ($avatars as $filename => $filepath) : ?>
                 <div class="col-6 col-md-4 col-lg-3 col-xl-2 mb-4">
