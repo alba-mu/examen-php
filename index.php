@@ -111,7 +111,7 @@ $avatars = listAvatars();
                             src="<?=$filepath?>" 
                             alt="<?=$filename?>">
                         <p class="mt-2"><?=$filename?></p>
-                        <a href="download.php?file=<?=$filename?>" class="btn btn-outline-dark">Download</a>
+                        <a href="./fn-php/download.php?file=<?=$filename?>" class="btn btn-outline-dark">Download</a>
                     </div>
                 </div>
             <?php endforeach; ?>

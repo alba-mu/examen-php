@@ -9,7 +9,7 @@
  * Validates the requested filename and forces the browser to download it.
  */
 
-$avatarDir = 'avatars/';
+$avatarDir = '../avatars/';
 
 // 1. Comprovar que tenim el paràmetre 'file'
 if (!isset($_GET['file'])) {
