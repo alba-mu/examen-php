@@ -7,6 +7,7 @@
  */
 
 require_once './fn-php/fn-users.php';
+require_once './fn-php/fn-avatars.php';
 
 session_start();
 
@@ -18,6 +19,7 @@ if (isset($_SESSION['username']) && isset($_SESSION['role'])) {
   $isLogged = true;
 }
 
+// Gestió del login
 if (filter_has_var(INPUT_POST, "loginsubmit")) {
 
   $username = filter_input(INPUT_POST, "username", FILTER_SANITIZE_SPECIAL_CHARS);
@@ -60,6 +62,9 @@ if (filter_has_var(INPUT_POST, "loginsubmit")) {
 }
 
 $current_page = 'index.php';
+
+// Generate filepaths for avatars
+$avatars = listAvatars();
 ?>
 
 <?php include_once "includes/topmenu.php"; ?>
@@ -97,7 +102,19 @@ $current_page = 'index.php';
 
 <?php if ($isLogged): ?>
   <div class="container text-center">
-    <p>You are logged in</p>
+    <div class="row">
+      <?php foreach ($avatars as $filename => $filepath) : ?>
+        <div class="col-2 mb-4">
+            <div class="card border-1 text-dark p-3 rounded-4 text-center">
+                <img class="rounded-circle img-thumbnail mx-auto img-fluid" 
+                    src="<?=$filepath?>" 
+                    alt="<?=$filename?>">
+                <p class="mt-2"><?=$filename?></p>
+                <a href="download.php?file=<?=$filename?>" class="btn btn-outline-dark">Download</a>
+            </div>
+        </div>
+      <?php endforeach; ?>
+    </div>
   </div>
 <?php endif; ?>
 
