@@ -10,12 +10,17 @@
  * If no session exists, it redirects the user to the index page.
  */
 session_start();
-if (isset($_SESSION['role'])) {  // session exists
+
+$loggedOut = false;
+
+if (isset($_SESSION['role'])) {
+    $_SESSION = [];  // Neteja totes les variables de sessió
     session_destroy();
-    setcookie('loggedIn', '', 1);
-    $loggedOut = True;
+    setcookie('loggedIn', '', time() - 3600, "/");
+    $loggedOut = true;
 } else {
     header("Location: index.php");
+    exit();
 }
 ?>
 <?php if ($loggedOut): ?>
@@ -26,13 +31,11 @@ if (isset($_SESSION['role'])) {  // session exists
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Logout</title>
-
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     </head>
 
     <body class="bg-dark text-light d-flex flex-column min-vh-100">
-
         <main class="flex-grow-1 d-flex justify-content-center align-items-center">
             <div class="card text-center p-4 shadow-lg" style="max-width: 400px;">
                 <div class="card-body">
