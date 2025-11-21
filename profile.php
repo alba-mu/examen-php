@@ -68,7 +68,7 @@ $current_page = 'profile.php';
                     </div>
 
                     <button type="submit" name="profilesubmit" class="btn btn-dark w-100">Submit</button>
-                    <p class="mt-2"><a href="logout.php">Logout</a></p>
+                    <p class="mt-2 text-center"><a href="logout.php">Logout</a></p>
                 </form>
             </div>
         </div>
