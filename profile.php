@@ -1,15 +1,15 @@
 <?php
 /**
- * File: index.php
+ * File: profile.php
  * Author: Alba Muñoz
  * 
- * File objective: 
+ * Description: 
  * This page shows a form with user's information.
  * The user can input an new password. The username, role and visits cannot be edited.
  * If password updated successfully, a success message is shown.
  * If there's any error, it is shown so user knows what happened.
  * User can also logout by clicking logout button.
- * Access to the page is verified by user's role
+ * Access to the page is verified by user's role. If user doesn't have permission, it's redirected to index.php
  */
 session_start();
 require_once './fn-php/fn-users.php';

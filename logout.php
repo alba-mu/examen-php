@@ -2,20 +2,21 @@
 /**
  * File: logout.php
  * Author: Alba Muñoz
- * Date: 18/11/2025
  *
  * Description:
  * This file handles user logout.
- * If a session exists, it destroys it and displays a confirmation message
- * If no session exists, it redirects the user to the index page.
+ * If a session exists, it destroys it and displays a confirmation message with button to redirect to index page.
+ * If no session exists, it redirects user to index page.
  */
 session_start();
 
 $loggedOut = false;
 
 if (isset($_SESSION['role'])) {
-    $_SESSION = [];  // Neteja totes les variables de sessió
+    // Destroy and clean session
+    $_SESSION = [];
     session_destroy();
+    // Delete 'loggedIn' cookie
     setcookie('loggedIn', '', time() - 3600, "/");
     $loggedOut = true;
 } else {
@@ -23,6 +24,7 @@ if (isset($_SESSION['role'])) {
     exit();
 }
 ?>
+
 <?php if ($loggedOut): ?>
     <!DOCTYPE html>
     <html lang="en">

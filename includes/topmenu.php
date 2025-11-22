@@ -2,20 +2,21 @@
 /**
  * File: topmenu.php
  * Author: Alba Muñoz
- * Date: 18/11/2025
  *
  * Description:
  * This file generates the top navigation bar for the application.
  * It adapts its links and options based on the user's login status and role.
+ * Menu options are 'Home', 'Profile Page' and 'Avatar Management'.
+ * If user is logged in, username is shown in the right side of the navigation bar.
  */
 
 $isLogged = False;
 $isAdvanced = False;
 
-// Comprobar si hi ha sesió iniciada
+// Verify if session exists
 if (isset($_SESSION['role'])) {
     $isLogged = True;
-    // Determinar si és advanced
+    // Verify if user has advanced role
     if ($_SESSION['role'] === 'advanced') {
         $isAdvanced = True;
     }
@@ -55,7 +56,7 @@ if (isset($_SESSION['role'])) {
                         <li class="nav-item">
                             <a class="nav-link <?= $current_page === 'profile.php' ? 'active bg-secondary text-white rounded px-2' : '' ?>"
                                 href="profile.php">
-                                Profile page</a>
+                                Profile Page</a>
                         </li>
                     <?php endif; ?>
 
@@ -67,18 +68,18 @@ if (isset($_SESSION['role'])) {
                         </li>
                     <?php endif; ?>
 
-
                 </ul>
 
                 <?php if ($isLogged): ?>
                     <ul class="navbar-nav mb-2 mb-xxl-0 ms-xxl-3 align-items-end">
                         <li class="nav-item d-flex align-items-center">
-                            <span class="nav-link px-2">
+                            <span class="text-white px-2">
                                 <?= htmlspecialchars($_SESSION['username'] ?? ''); ?>
                             </span>
                         </li>
                     </ul>
                 <?php endif; ?>
+
             </div>
         </div>
     </nav>
