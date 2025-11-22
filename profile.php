@@ -8,6 +8,7 @@ session_start();
 require_once './fn-php/fn-users.php';
 
 $msg_error = "";
+$msg_success = "";
 
 if (!isset($_SESSION['username'])) {
     header("Location: index.php");
@@ -23,7 +24,7 @@ if (filter_has_var(INPUT_POST, "profilesubmit")) {
         // Actualitzar password en sessió i fitxer
         $_SESSION['password'] = $password;
         updateUser($_SESSION['username'], $password, $_SESSION['role'], $_SESSION['visits']);
-        $msg_error = "Password updated successfully";
+        $msg_success = "Password updated successfully";
     }
 }
 
@@ -38,7 +39,9 @@ $current_page = 'profile.php';
         <div class="card shadow mb-4">
             <div class="card-body">
                 <?php if ($msg_error): ?>
-                    <div class="alert alert-info pt-1 pb-1"><?php echo $msg_error; ?></div>
+                    <div class="alert alert-danger py-2"><?php echo $msg_error; ?></div>
+                <?php elseif ($msg_success): ?>
+                    <div class="alert alert-success py-2"><?php echo $msg_success; ?></div>
                 <?php endif; ?>
 
                 <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="post">

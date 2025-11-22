@@ -76,7 +76,7 @@ $avatars = listAvatars();
       <div class="card shadow mb-4">
         <div class="card-body">
           <?php if ($msg_error): ?>
-            <div class="alert alert-danger pt-1 pb-1"><?php echo $msg_error; ?></div>
+            <div class="alert alert-danger py-2"><?php echo $msg_error; ?></div>
           <?php endif; ?>
 
           <form action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="post">

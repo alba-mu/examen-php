@@ -40,11 +40,11 @@ $avatars = listAvatars();
 
                     <?php if ($alert): ?>
                         <?php if (isset($alert['error'])): ?>
-                            <div class="alert alert-danger p-2">
+                            <div class="alert alert-danger py-2">
                                 <?= htmlspecialchars($alert['error']) ?>
                             </div>
                         <?php elseif (isset($alert['success'])): ?>
-                            <div class="alert alert-success p-2">
+                            <div class="alert alert-success py-2">
                                 <?= htmlspecialchars($alert['success']) ?>
                             </div>
                         <?php endif; ?>
