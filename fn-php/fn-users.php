@@ -1,12 +1,14 @@
 <?php
 /** 
-
  * File: fn-users.php
+ * Author: Alba Muñoz
  *
  * Description:
  * This file contains functions to manage user persistence in the system.
- * It provides functions to search for a user by username and to insert a new user,
- * ensuring that usernames are unique.
+ * It provides functions to:
+ *          - search for a user by username, 
+ *          - insert a new user ensuring that usernames are unique,
+ *          - update user's information
  */
 
 /**
@@ -14,7 +16,8 @@
  * @param string $username the username to search
  * @return array with all data of that user or empty array if not found
  */
-function searchUser(string $username): array {
+function searchUser(string $username): array
+{
     $filename = "files/users.txt";
     $delimiter = ";";
     $result = [];
@@ -25,15 +28,15 @@ function searchUser(string $username): array {
                 fscanf($handle, "%s\n", $line);
                 if ($line) {
                     $fields = \explode($delimiter, $line);
-                    if (($fields[0]===$username)) {
+                    if (($fields[0] === $username)) {
                         $result = $fields;
                         break;
                     }
                 }
             }
-            \fclose($handle);            
+            \fclose($handle);
         }
-    }  
+    }
     return $result;
 }
 
@@ -48,10 +51,11 @@ function searchUser(string $username): array {
  * @return bool true if successfully inserted, false otherwise
  */
 function insertUser(
-        string $username, 
-        string $password,
-        string $role,
-        string $visits): bool {
+    string $username,
+    string $password,
+    string $role,
+    string $visits
+): bool {
     $filename = "files/users.txt";
     $delimiter = ";";
     $result = false;
@@ -59,20 +63,25 @@ function insertUser(
     $usrdata = searchUser($username);
     if (\count($usrdata) == 0) {
         //write new user to file
-       if (\file_exists($filename) && \is_writable($filename)) {
-           $handle = \fopen($filename, 'a');  //returns false on error.
-           if ($handle) {
-               fprintf($handle, 
-                       "%s%s%s%s%s%s%s%s%s\n", 
-                       $username,$delimiter, 
-                       $password, $delimiter,
-                       $role, $delimiter,
-                       $visits);
-               $result = true;
-               \fclose($handle);   
-           }
-       }       
-    } 
+        if (\file_exists($filename) && \is_writable($filename)) {
+            $handle = \fopen($filename, 'a');  //returns false on error.
+            if ($handle) {
+                fprintf(
+                    $handle,
+                    "%s%s%s%s%s%s%s%s%s\n",
+                    $username,
+                    $delimiter,
+                    $password,
+                    $delimiter,
+                    $role,
+                    $delimiter,
+                    $visits
+                );
+                $result = true;
+                \fclose($handle);
+            }
+        }
+    }
 
     return $result;
 }
@@ -86,7 +95,7 @@ function insertUser(
  * @return bool true if successfully updated, false otherwise
  */
 function updateUser(
-    string $username, 
+    string $username,
     string $password,
     string $role,
     int $visits
@@ -95,7 +104,8 @@ function updateUser(
     $delimiter = ";";
     $result = false;
 
-    if (!file_exists($filename) || !is_writable($filename)) return false;
+    if (!file_exists($filename) || !is_writable($filename))
+        return false;
 
     $rows = file($filename, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
     $newRows = [];

@@ -2,7 +2,6 @@
 /**
  * File: download.php
  * Author: Alba Muñoz
- * Date: 21/11/2025
  *
  * Description:
  * Safely serves avatar image files for download.
@@ -11,37 +10,37 @@
 
 $avatarDir = '../avatars/';
 
-// 1. Comprovar que tenim el paràmetre 'file'
+// Verify parameter 'file' exists
 if (!isset($_GET['file'])) {
     die("No file specified.");
 }
 
 $filename = basename($_GET['file']);
 
-// 2. Construir la ruta real
+// Generate filepath
 $filepath = $avatarDir . $filename;
 
-// 3. Comprovar que el fitxer existeix i és llegible
+// Verify file exists and is readable
 if (!file_exists($filepath) || !is_file($filepath)) {
     die("File not found.");
 }
 
-// 4. Detectar tipus MIME
+// Detect MIME type
 $mime = mime_content_type($filepath);
 
-// Només permetre descarregar imatges
+// Only allow download of images
 $allowed = ['image/jpeg', 'image/png'];
 if (!in_array($mime, $allowed)) {
     die("Invalid file type.");
 }
 
-// 5. Enviar headers per forçar la descàrrega
+// Send headers to force download
 header("Content-Type: $mime");
 header('Content-Disposition: attachment; filename="' . $filename . '"');
 header("Content-Length: " . filesize($filepath));
 header("Cache-Control: no-cache, must-revalidate");
 header("Expires: 0");
 
-// 6. Enviar el fitxer
+// Send file
 readfile($filepath);
 exit;

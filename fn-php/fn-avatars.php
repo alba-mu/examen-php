@@ -1,4 +1,14 @@
 <?php
+/** 
+ * File: fn-avatars.php
+ * Author: Alba Muñoz
+ *
+ * Description:
+ * This file contains functions to manage avatars persistence in the system.
+ * It provides functions to:
+ *          - list available avatars 
+ */
+
 /**
  * Returns a list of available avatar images stored inside the /avatars directory.
  *
@@ -11,19 +21,20 @@
  *
  * @return array<string, string> Associative array in the format ['filename' => 'filepath']
  */
-function listAvatars(){
+function listAvatars(): array
+{
 
-    $filedir='avatars/';
+    $filedir = 'avatars/';
     $avatars = [];
     $allowed = ['image/jpeg', 'image/png'];
 
-    if(file_exists($filedir) && is_dir($filedir)){
-        if($handle=opendir($filedir)){
-            while(($entry=readdir($handle))!==false){
-                if($entry!="." && $entry !=".."){
+    if (file_exists($filedir) && is_dir($filedir)) {
+        if ($handle = opendir($filedir)) {
+            while (($entry = readdir($handle)) !== false) {
+                if ($entry != "." && $entry != "..") {
                     $filepath = $filedir . $entry;
-                    
-                    if(in_array(mime_content_type($filepath), $allowed)){
+
+                    if (in_array(mime_content_type($filepath), $allowed)) {
                         $avatars[$entry] = $filepath;
                     }
                 }
