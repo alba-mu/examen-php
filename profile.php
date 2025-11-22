@@ -2,42 +2,53 @@
 /**
  * File: index.php
  * Author: Alba Muñoz
- * Date: 18/11/2025
+ * 
+ * File objective: 
+ * This page shows a form with user's information.
+ * The user can input an new password. The username, role and visits cannot be edited.
+ * If password updated successfully, a success message is shown.
+ * If there's any error, it is shown so user knows what happened.
+ * User can also logout by clicking logout button.
+ * Access to the page is verified by user's role
  */
 session_start();
 require_once './fn-php/fn-users.php';
+require_once './fn-php/fn-roles.php';
 
 $msg_error = "";
 $msg_success = "";
 
-if (!isset($_SESSION['username'])) {
+// Verify user's valid role to access page
+if (!isGranted($_SESSION['role'], 'profile')) {
     header("Location: index.php");
     exit();
 }
 
+// Validate form submit
 if (filter_has_var(INPUT_POST, "profilesubmit")) {
     $password = filter_input(INPUT_POST, "password", FILTER_SANITIZE_SPECIAL_CHARS);
 
     if ($password === '') {
         $msg_error = "Password cannot be empty";
     } else {
-        // Actualitzar password en sessió i fitxer
+        // Update password in session
         $_SESSION['password'] = $password;
+        // Update password in users.txt file
         updateUser($_SESSION['username'], $password, $_SESSION['role'], $_SESSION['visits']);
         $msg_success = "Password updated successfully";
     }
 }
 
 $current_page = 'profile.php';
+include_once "includes/topmenu.php";
 ?>
-
-<?php include_once "includes/topmenu.php"; ?>
 
 <main class="flex-grow-1 d-flex justify-content-center align-items-center">
     <div class="container" style="max-width: 400px;">
         <h2 class="text-center display-4 mb-4 fw-normal">My Profile</h2>
         <div class="card shadow mb-4">
             <div class="card-body">
+
                 <?php if ($msg_error): ?>
                     <div class="alert alert-danger py-2"><?php echo $msg_error; ?></div>
                 <?php elseif ($msg_success): ?>
@@ -70,6 +81,7 @@ $current_page = 'profile.php';
                     </div>
 
                     <button type="submit" name="profilesubmit" class="btn btn-dark w-100">Submit</button>
+
                     <p class="mt-4 mb-0 text-center"><a class="btn btn-outline-dark" href="logout.php">Logout</a></p>
                 </form>
             </div>
