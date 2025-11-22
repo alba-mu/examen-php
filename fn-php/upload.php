@@ -1,4 +1,5 @@
 <?php
+session_start();
 define("PATH_TO_UPLOADED_FILES", "../avatars/");
 
 $message = [];
@@ -29,6 +30,9 @@ if (isset($_POST['submit_image'])) {
         }
     }
 }
+
+// Guardar missatges a la sessió
+$_SESSION['upload_message'] = $message;
 
 // tornar a avatarManagement.php
 header("Location: ../avatarManagement.php");
